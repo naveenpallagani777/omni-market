@@ -1,0 +1,9 @@
+# Vite / React
+client/node_modules/
+client/dist/
+client/.env
+
+# Server build (if any)
+server/node_modules/
+server/dist/
+server/.env
