@@ -3,6 +3,7 @@ const jsonwebtoken = require("jsonwebtoken");
 const config = require("../config");
 const UsersModel = require("../models/user");
 const { createError } = require("./utils");
+const { profile } = require("../controllers/auth");
 
 const generateToken = (user) => {
     return jsonwebtoken.sign(user, config.JWT_SECRET, { expiresIn: "1h" });
@@ -67,4 +68,10 @@ module.exports = {
         await user.save();
         return { message: "Password changed successfully" };
     },
+
+    profile: async (userId) => {
+        const user = await UsersModel.findById(userId).select("-password");
+        if (!user) throw createError("User not found", 404);
+        return user;
+    }
 };

@@ -25,6 +25,7 @@ exports.changePassword = catchAsync(async (req, res) => {
 });
 
 
-exports.profile = async (req, res) => {
-	res.json({ success: true, user: req.user });
-};
+exports.profile = catchAsync(async (req, res) => {
+	const user = await authService.profile(req.user.id);
+	res.json({ success: true, data: user });
+});
